@@ -126,6 +126,9 @@ class Game:
     if self.tilemap[pos.y][pos.x].mines == 0:
       neighbours = self.get_neighbour_tiles(pos)
       for neighbour in neighbours:
+        if not neighbour.isRevealed and not neighbour.mines:
+          neighbour.isRevealed = True
+          self.reveal_tiles(neighbour.pos)
         neighbour.isRevealed = True
 
   def handle_events(self) -> None:
@@ -181,5 +184,6 @@ def main() -> None:
   game.run()
 
 if __name__ == '__main__':
+  os.system('clear')
   pg.init()
   main()
